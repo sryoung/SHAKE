@@ -37,28 +37,48 @@
 	include("config.php");
 	
 	$username = $_POST["username"];
-	$password = $_POST["password"];
+	$entered_password = $_POST["password"];
 	
-	$query = "select * from sometable where username = $username  and password= $password";
+	$salt = "kr";
+
+	// This saved_password would be saved in the database.
+
+	$entered_password = $_POST["password"];
+	
+	$query = "select * from users where username = '".$username."'";
 	$result = mysql_query($query);
-      // This tells you how many rows were returned
+
+	$row = mysql_fetch_assoc($result);
+	$saved_password = $row["password"];
+	
 	$num_rows = mysql_num_rows($result);
 
-	while ($row = mysql_fetch_assoc($result)) {
-		echo "<p>good </p>";
-	} 
-	?>
+	if ($num_rows > 0) {
+		if (crypt($entered_password, $salt) == $saved_password) {
+		?>
+			<script type="text/javascript">
+				// Save the username in local storage. That way you
+				// can access it later even if the user closes the app.
+				localStorage.setItem('username', '<?=$_POST["username"]?>');
+			</script>
+		<?php
+		echo "<p>Thank you, <strong>".$_POST["username"]."</strong>. You are now logged in.</p>";
+		echo "<p><a href='home.php' data-role='button'>Home</a></p>";
+
+		
+		} else {
+			echo "<p>Invalid Password.</p>";
+			echo "<p><a href='welcome.php' data-role='button'>Back to sign up again</a></p>";
+		} 
+	} else {
+		echo "<p>Invalid User</p>";
+		echo "<p><a href='welcome.php' data-role='button'>Back to sign up again</a></p>";
+	}
+	
+
+?>
 
 	<div data-role="fieldcontain">
-			
-	</div>	
-	
-		
-	<div id="info">
-		<p>Thank you for logging. You should be able to see all sorts of user information here.</p>
-	</div>	
-	</div><!-- /content -->
-
 </div><!-- /page signin -->
 
 

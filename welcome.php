@@ -44,9 +44,8 @@
 	<p><a href="signup.php" data-role="button">Sign Up</a></p>	
 
 	</div><!-- /content -->
-	
-</div>
 
+</div>
 
 
 

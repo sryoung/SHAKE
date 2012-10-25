@@ -20,7 +20,6 @@
 </head> 
 
 <body>
-	
 
 <!-- Start of second page: #signup -->
 <div data-role="page" id="signup" data-add-back-btn="true">
@@ -30,60 +29,22 @@
 	
 	<div data-role="content">	
 
-    	<form action="#submit" method="post">
+    <form action="submit.php" method="post">
 	<label for="foo">Username:</label>
 	<input type="text" name="username" id="foo">
 	<label for="foo">Email:</label>
 	<input type="email" name="email" id="foo">
 	<label for="bar">Password:</label>
 	<input type="password" name="password" id="bar">
-	<label for="bar">Reenter Password:</label>
+	<label for="bar">Re-enter Password:</label>
 	<input type="password" name="password2" id="bar">
-    <input type="submit" value="Login">
+    <input type="submit" value="Sign Up">
 	</form>
 	</div><!-- /content -->
 	
-
 </div><!-- /page signup -->
 
-<div data-role="page" id="submit" data-add-back-btn="true">
-	<div data-role="header">
-		<h1>Sign Up</h1>
-	</div><!-- /header -->
-	<div data-role="content">	
-
-	<?php	
-			include("config.php");
-			$salt = "kr";
-			
-			$username = $_POST["username"];
-			$password = $_POST["password"];
-			$password2 = $_POST["password2"];
-			$email = $_POST["email"];
-			
-			if ($password == $password2) {
-				$entered_password = $_POST["password"];
-			}
-			
-			$t = time();
-						
-			$query = "insert into users (username, email, password) values ('$username', '$email','$password')";
-			
-			$result = mysql_query($query);
-			
-			if ($result) {
-				
-				echo "<p>Thank you for signing up</p>";
-					
-			}
-			
-			
-	?>
-	</div><!-- /content -->
-
-
-
-</div><!-- /page submit -->
+  
 
 
 
